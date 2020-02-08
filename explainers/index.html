@@ -443,6 +443,66 @@
 </script>
 
   </div>
+
+  <p class="f4 lh-copy"><strong>Settings fill and stroke.</strong> You can add color to shapes by setting fill and stroke values. Colors are represented as red, blue and green values, each ranging between 0 and 255. Note that fill and stroke settings are sticky: after setting these values, any shape drawn after will have these colors unless you explicitly change them.</p>
+  <div id="colors" class="flex ba b--light-gray pa3 br2">
+
+<code class="pre f5 dark-gray w-50 no-select lh-copy">
+  fill(<span class="TKAdjustableNumber" data-var="fr" data-min="0" data-max="255"></span>, <span class="TKAdjustableNumber" data-var="fg" data-min="0" data-max="255"></span>, <span class="TKAdjustableNumber" data-var="fb" data-min="0" data-max="255"></span>)
+  stroke(<span class="TKAdjustableNumber" data-var="sr" data-min="0" data-max="255"></span>, <span class="TKAdjustableNumber" data-var="sg" data-min="0" data-max="255"></span>, <span class="TKAdjustableNumber" data-var="sb" data-min="0" data-max="255"></span>)
+  strokeWeight(<span class="TKAdjustableNumber" data-var="sw" data-min="0" data-max="20"></span>)
+  circle(120, 100, 100)
+  square(200, 50, 100)
+</code>
+
+<script>
+  var root = document.getElementById("colors")
+
+  new p5((sketch) => {
+    var tangle = new Tangle(root, {
+      initialize() {
+        this.fr = 200
+        this.fg = 100
+        this.fb = 100
+
+        this.sr = 100
+        this.sg = 200
+        this.sb = 100
+
+        this.sw = 5
+      },
+      update() {}
+    })
+
+    sketch.setup = () => {
+      sketch.createCanvas(400, 200)
+    }
+
+    sketch.draw = () => {
+      sketch.background(255)
+
+      var fr = tangle.getValue("fr")
+      var fg = tangle.getValue("fg")
+      var fb = tangle.getValue("fb")
+
+      var sr = tangle.getValue("sr")
+      var sg = tangle.getValue("sg")
+      var sb = tangle.getValue("sb")
+
+      var sw = tangle.getValue("sw")
+
+      sketch.fill(fr, fg, fb)
+      sketch.stroke(sr, sg, sb)
+      sketch.strokeWeight(sw)
+
+      sketch.circle(120, 100, 100)
+      sketch.square(200, 50, 100)
+    }
+  }, root)
+</script>
+
+  </div>
+
 </body>
 
 </html>
