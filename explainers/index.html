@@ -37,7 +37,6 @@
 
 <body class="garamond mw7 ml-auto mr-auto mv5 near-black">
   <h1 class="f1 lh-title measure">Reference Guide</h1>
-  <h2 class="f3 lh-title measure">Drawing shapes</h2>
   <p class="f4 lh-copy"><strong>Coordinates.</strong> Think of the canvas as similar to a graph sheet: each point is denoted by two numbers, the x coordinate and the y coordinte. The x axis runs from top-left to top-right and the y axis runs from top-left to bottom-left.</p>
   <div id="coordinates" class="flex ba b--light-gray pa3 br2">
 
@@ -372,6 +371,73 @@
         sketch.text(`w = ${w}`, cx + w/2 + 10, cy)
         sketch.text(`h = ${h}`, cx - 15, cy + h/2 + 20)
       }
+    }
+  }, root)
+</script>
+
+  </div>
+
+  <p class="f4 lh-copy"><strong>Arc.</strong> Similar to ellipses, arcs require a center point, width and height along with the start and end angle. Angles in p5 are defined in terms of radians, but I find degrees easier to use. You can set the angle mode to use degrees with <code class="f5">angleMode(DEGREES)</code>.</p>
+  <div id="shapes-arc" class="flex ba b--light-gray pa3 br2 mb4">
+
+<code class="pre f5 dark-gray w-50 no-select lh-copy">
+  angleMode(DEGREES)
+  arc(<span class="TKAdjustableNumber" data-var="cx" data-min="0" data-max="400"></span>, <span class="TKAdjustableNumber" data-var="cy" data-min="0" data-max="200"></span>, <span class="TKAdjustableNumber" data-var="w" data-min="0" data-max="400"></span>, <span class="TKAdjustableNumber" data-var="h" data-min="0" data-max="200"></span>, <span class="TKAdjustableNumber" data-var="startAngle" data-min="-360" data-max="360"></span>, <span class="TKAdjustableNumber" data-var="endAngle" data-min="-360" data-max="360"></span>)
+</code>
+
+<script>
+  var root = document.getElementById("shapes-arc")
+
+  new p5((sketch) => {
+    var tangle = new Tangle(root, {
+      initialize() {
+        this.cx = 200
+        this.cy = 100
+        this.w = 100
+        this.h = 100
+        this.startAngle = 0
+        this.endAngle = 180
+      },
+      update() {}
+    })
+
+    sketch.setup = () => {
+      sketch.createCanvas(400, 200)
+      sketch.angleMode(sketch.DEGREES)
+    }
+
+    sketch.draw = () => {
+      sketch.background(255)
+
+      var cx = tangle.getValue("cx")
+      var cy = tangle.getValue("cy")
+      var w = tangle.getValue("w")
+      var h = tangle.getValue("h")
+      var startAngle = tangle.getValue("startAngle")
+      var endAngle = tangle.getValue("endAngle")
+
+      sketch.fill(theme.guide)
+      sketch.noStroke()
+      sketch.circle(cx, cy, 6)
+      sketch.noFill()
+      sketch.stroke(theme.guide)
+      sketch.line(cx - w/2, cy, cx + w/2, cy)
+      sketch.line(cx, cy - h/2, cx, cy + h/2)
+      sketch.strokeWeight(0.75)
+      sketch.ellipse(cx, cy, w, h)
+
+      sketch.noFill()
+      sketch.stroke(theme.accent)
+      sketch.strokeWeight(1)
+      sketch.arc(cx, cy, w, h, startAngle, endAngle)
+
+      sketch.fill(theme.dark)
+      sketch.noStroke()
+      sketch.textAlign(sketch.CENTER)
+      sketch.text(`(${cx}, ${cy})`, cx, cy + 20)
+      sketch.text(`h = ${h}`, cx, cy - h/2 - 15)
+      sketch.textAlign(sketch.LEFT)
+      sketch.text(`w = ${w}`, cx + w/2 + 15, cy + 5)
     }
   }, root)
 </script>
